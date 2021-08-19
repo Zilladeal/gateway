@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: ApiGateway
+  cloud:
+    gateway:
+    discovery:
+      locator:
+        enabled: true
+    routes:
+      - id: jewelleryModule
+        uri: lb://jewellery-service
+        predicates:
+            - Path=/jewellery/gold/**
+
+server:
+  port: 8558
+eureka:
+  client:
+    serviceURL:
+      defaultZone: http://localhost:8761/eureka
+
+management:
+  endpoint:
+    gateway:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: gateway
